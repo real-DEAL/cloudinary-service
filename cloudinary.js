@@ -1,6 +1,6 @@
 const express = require('express');
 const cloudinary = require('cloudinary');
-require('dotenv').config()
+require('dotenv').config();
 
 const router = new express.Router();
 
@@ -11,7 +11,7 @@ cloudinary.config({
 });
 
 router.post('/image', (req, res) => {
-  cloudinary.uploader.upload(req.body.image, function(result) {
+  cloudinary.uploader.upload(req.body.image, (result) => {
     res.send(result.url);
   });
   // const options = {
