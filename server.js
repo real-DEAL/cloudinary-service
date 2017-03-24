@@ -14,7 +14,9 @@ const rp = require('request-promise');
 const cloudPath = require('./cloudinary.js');
 
 app.use('/upload', cloudPath);
-
+app.get('/test',(req,res)=>{
+  res.send('cloudinary server setup')
+})
 app.listen(PORT, function() {
   console.log('HEY LISTEN', PORT);
   app.emit("appStarted");
