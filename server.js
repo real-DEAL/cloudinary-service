@@ -1,23 +1,31 @@
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
+const cloudPath = require('./cloudinary.js');
+
+const app = express();
+// const path = require('path');
+// const rp = require('request-promise')
+
+const PORT = process.env.PORT || 5000;
 
 require('dotenv').config();
 
-
-const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-const PORT = process.env.PORT || 8100;
-const rp = require('request-promise');
 
-const cloudPath = require('./cloudinary.js');
 
-app.use('/upload', cloudPath);
+app.use('/upload', (req, res, next) => {
+  console.log(req);
+  next();
+}, cloudPath);
+app.get('/test', (req, res) => {
+  res.send('cloudinary server setup');
+});
 
-app.listen(PORT, function() {
-  console.log('HEY LISTEN', PORT);
-  app.emit("appStarted");
+app.listen(PORT, () => {
+  console.warn('HEY LISTEN', PORT);
+  app.emit('appStarted');
 });
 
 module.exports = app;

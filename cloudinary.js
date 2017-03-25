@@ -1,6 +1,7 @@
+/*  eslint no-console: ["error", { allow: ["warn", "error"] }] */
 const express = require('express');
 const cloudinary = require('cloudinary');
-require('dotenv').config()
+require('dotenv').config();
 
 const router = new express.Router();
 
@@ -11,7 +12,10 @@ cloudinary.config({
 });
 
 router.post('/image', (req, res) => {
-  cloudinary.uploader.upload(req.body.image, function(result) {
+  console.warn('sendimage', req.body);
+
+  cloudinary.uploader.upload(req.body.image, (result) => {
+    console.warn(result);
     res.send(result.url);
   });
   // const options = {
